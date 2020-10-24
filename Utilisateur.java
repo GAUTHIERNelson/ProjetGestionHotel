@@ -1,13 +1,12 @@
-package com.java.HotelGestion;
 
-public class uilisatteur {
+public class Utilisateur {
 	private String nomUser;
 	
 	private String prenomUser;
 	 private String login;
 	 private String password;
 	 
-	public uilisatteur(String nomUser,String prenomUser ,String login ,String password ) {
+	public Utilisateur(String nomUser,String prenomUser ,String login ,String password ) {
 		this.nomUser= nomUser;
 
 		this.prenomUser= prenomUser;
