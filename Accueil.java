@@ -1,5 +1,5 @@
 
-public interface Accueil {
+public interface Accueil { //Interface Accueil
 	
 	public void ajouterClient ();
 	
