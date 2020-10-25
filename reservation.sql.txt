@@ -1,0 +1,149 @@
+#------------------------------------------------------------
+#        Script MySQL.
+#------------------------------------------------------------
+
+
+#------------------------------------------------------------
+# Table: Facture
+#------------------------------------------------------------
+
+CREATE TABLE Facture(
+        idFacture   Int  Auto_increment  NOT NULL ,
+        DateFacture Date NOT NULL ,
+        Montant     Integer NOT NULL
+	,CONSTRAINT Facture_PK PRIMARY KEY (idFacture)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Clients
+#------------------------------------------------------------
+
+CREATE TABLE Clients(
+        idFacture Int NOT NULL ,
+        idClient  Int NOT NULL ,
+        Adresse   Varchar (150) NOT NULL ,
+        Telephone Int NOT NULL ,
+        Mail      Varchar (150) NOT NULL ,
+        Nom       Varchar (150) NOT NULL ,
+        Prenom    Varchar (150) NOT NULL
+	,CONSTRAINT Clients_PK PRIMARY KEY (idFacture,idClient)
+
+	,CONSTRAINT Clients_Facture_FK FOREIGN KEY (idFacture) REFERENCES Facture(idFacture)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Utilisateur
+#------------------------------------------------------------
+
+CREATE TABLE Utilisateur(
+        idFacture_Clients Int NOT NULL ,
+        idClient          Int NOT NULL ,
+        idFacture         Int NOT NULL ,
+        idUtilisateur     Int NOT NULL ,
+        Login             Varchar (150) NOT NULL ,
+        Nom               Varchar (150) NOT NULL ,
+        Prenom            Varchar (150) NOT NULL ,
+        role              Varchar (50) NOT NULL
+	,CONSTRAINT Utilisateur_PK PRIMARY KEY (idFacture_Clients,idClient,idFacture,idUtilisateur)
+
+	,CONSTRAINT Utilisateur_Clients_FK FOREIGN KEY (idFacture_Clients,idClient) REFERENCES Clients(idFacture,idClient)
+	,CONSTRAINT Utilisateur_Facture0_FK FOREIGN KEY (idFacture) REFERENCES Facture(idFacture)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Reservation
+#------------------------------------------------------------
+
+CREATE TABLE Reservation(
+        idReservation    Int  Auto_increment  NOT NULL ,
+        DateRerservation Date NOT NULL ,
+        DateDepart       Date NOT NULL ,
+        DateArrive       Date NOT NULL
+	,CONSTRAINT Reservation_PK PRIMARY KEY (idReservation)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Chambre
+#------------------------------------------------------------
+
+CREATE TABLE Chambre(
+        idChambre      Int  Auto_increment  NOT NULL ,
+        NumChambre     Int NOT NULL ,
+        NombrePersonne Int NOT NULL ,
+        TypeChambre    Varchar (150) NOT NULL ,
+        Repas          Bool NOT NULL ,
+        Balcon         Bool NOT NULL ,
+        VuePiscine     Bool NOT NULL ,
+        Tarif          DECIMAL (15,3)  NOT NULL ,
+        idReservation  Int NOT NULL
+	,CONSTRAINT Chambre_PK PRIMARY KEY (idChambre)
+
+	,CONSTRAINT Chambre_Reservation_FK FOREIGN KEY (idReservation) REFERENCES Reservation(idReservation)
+	,CONSTRAINT Chambre_Reservation_AK UNIQUE (idReservation)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: GroupePersonne
+#------------------------------------------------------------
+
+CREATE TABLE GroupePersonne(
+        idGroupe       Int  Auto_increment  NOT NULL ,
+        NomGroupe      Varchar (150) NOT NULL ,
+        NombrePersonne Int NOT NULL ,
+        Tarif          Int NOT NULL
+	,CONSTRAINT GroupePersonne_PK PRIMARY KEY (idGroupe)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: SalleEvenement
+#------------------------------------------------------------
+
+CREATE TABLE SalleEvenement(
+        idSalle        Int  Auto_increment  NOT NULL ,
+        NombrePersonne Int NOT NULL ,
+        Tarif          Int NOT NULL
+	,CONSTRAINT SalleEvenement_PK PRIMARY KEY (idSalle)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: reserve
+#------------------------------------------------------------
+
+CREATE TABLE reserve(
+        idFacture_Clients Int NOT NULL ,
+        idClient          Int NOT NULL ,
+        idFacture         Int NOT NULL ,
+        idUtilisateur     Int NOT NULL ,
+        idSalle           Int NOT NULL ,
+        idGroupe          Int NOT NULL
+	,CONSTRAINT reserve_PK PRIMARY KEY (idFacture_Clients,idClient,idFacture,idUtilisateur,idSalle,idGroupe)
+
+	,CONSTRAINT reserve_Utilisateur_FK FOREIGN KEY (idFacture_Clients,idClient,idFacture,idUtilisateur) REFERENCES Utilisateur(idFacture_Clients,idClient,idFacture,idUtilisateur)
+	,CONSTRAINT reserve_SalleEvenement0_FK FOREIGN KEY (idSalle) REFERENCES SalleEvenement(idSalle)
+	,CONSTRAINT reserve_GroupePersonne1_FK FOREIGN KEY (idGroupe) REFERENCES GroupePersonne(idGroupe)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: effectue
+#------------------------------------------------------------
+
+CREATE TABLE effectue(
+        idFacture_Clients Int NOT NULL ,
+        idClient          Int NOT NULL ,
+        idFacture         Int NOT NULL ,
+        idUtilisateur     Int NOT NULL ,
+        idReservation     Int NOT NULL
+	,CONSTRAINT effectue_PK PRIMARY KEY (idFacture_Clients,idClient,idFacture,idUtilisateur,idReservation)
+
+	,CONSTRAINT effectue_Utilisateur_FK FOREIGN KEY (idFacture_Clients,idClient,idFacture,idUtilisateur) REFERENCES Utilisateur(idFacture_Clients,idClient,idFacture,idUtilisateur)
+	,CONSTRAINT effectue_Reservation0_FK FOREIGN KEY (idReservation) REFERENCES Reservation(idReservation)
+)ENGINE=InnoDB;
+
