@@ -80,9 +80,18 @@ public class Chambre {
 	
 	
 	//methode pour calculer  tarif
+	/*Pour châque option choisi par le client 
+	lord de la réservation augmente d'un certain pourcentage le tarif de base de la chambre*/
+	//J'ai choisis les valeurs des pourcentages au hasard et peuvent être modifiées par la suite
 	
-	public int calculerTarif() {
-		
+	public double calculerTarif() {
+		if (repas == true)
+			tarif += ((tarif/100)*15);
+		if (balcon == true)
+			tarif += ((tarif/100)*30);
+		if (vuePiscine == true)
+			tarif += ((tarif/100)*15);
+		return tarif;
 	}
 	
 	
