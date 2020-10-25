@@ -1,58 +1,63 @@
 
-public class Utilisateur {
-	private String nomUser;
+public class Utilisateur  {
 	
-	private String prenomUser;
-	 private String login;
-	 private String password;
-	 
-	public Utilisateur(String nomUser,String prenomUser ,String login ,String password ) {
-		this.nomUser= nomUser;
-
-		this.prenomUser= prenomUser;
-
-		this.login= login;
-
-		this.password=password;
-
-	}
-
-	public String getNomUser() {
-		return nomUser;
-	}
-
-	public void setNomUser(String nomUser) {
-		this.nomUser = nomUser;
-	}
-
-	public String getPrenomUser() {
-		return prenomUser;
-	}
-
-	public void setPrenomUser(String prenomUser) {
-		this.prenomUser = prenomUser;
-	}
-
+	private String login;
+	private String password;
+	private String nom;
+	private String prenom;
+	
+	//les  getters et les setters
 	public String getLogin() {
 		return login;
 	}
-
 	public void setLogin(String login) {
 		this.login = login;
 	}
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	public  String toString() {
-		
-		return "  nomUser"+getNomUser()+"\n prenomUser"+getPrenomUser()+" \n login"+getLogin()+" \n password"+getPassword();
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	public String getPrenom() {
+		return prenom;
+	}
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
 	}
 	
+	
+	// constructeur par attributs :
+	public Utilisateur(String login, String password, String nom, String prenom) {
+		super();
+		this.login = login;
+		this.password = password;
+		this.nom = nom;
+		this.prenom = prenom;
+	}
+	
+	//constructeur par defaut 
+	public Utilisateur() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 }
