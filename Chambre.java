@@ -80,6 +80,7 @@ public class Chambre {
 	
 	
 	//methode pour calculer  tarif
+	
 	/*Pour châque option choisi par le client 
 	lord de la réservation augmente d'un certain pourcentage le tarif de base de la chambre*/
 	//J'ai choisis les valeurs des pourcentages au hasard et peuvent être modifiées par la suite
