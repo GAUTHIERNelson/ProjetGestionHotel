@@ -45,7 +45,7 @@ CREATE TABLE Utilisateur(
         idUtilisateur     Int Auto_increment NOT NULL ,
         Login             Varchar (150) NOT NULL ,
         Nom               Varchar (150) NOT NULL ,
-        Prenom            Varchar (150) NOT NULL ,
+        Prenom            Varchar (150) NOT NULL 
 	,CONSTRAINT Utilisateur_PK PRIMARY KEY (idUtilisateur)
 
 	,CONSTRAINT Utilisateur_Clients_FK FOREIGN KEY (idFacture_Clients,idClient) REFERENCES Clients(idFacture,idClient)
