@@ -21,13 +21,13 @@ CREATE TABLE Facture(
 
 CREATE TABLE Clients(
         idFacture Int NOT NULL ,
-        idClient  Int NOT NULL ,
+        idClient  Int Auto_increment NOT NULL ,
         Adresse   Varchar (150) NOT NULL ,
-        Telephone Int NOT NULL ,
+        Telephone Int,
         Mail      Varchar (150) NOT NULL ,
         Nom       Varchar (150) NOT NULL ,
         Prenom    Varchar (150) NOT NULL
-	,CONSTRAINT Clients_PK PRIMARY KEY (idFacture,idClient)
+	,CONSTRAINT Clients_PK PRIMARY KEY (idClient)
 
 	,CONSTRAINT Clients_Facture_FK FOREIGN KEY (idFacture) REFERENCES Facture(idFacture)
 )ENGINE=InnoDB;
@@ -38,18 +38,19 @@ CREATE TABLE Clients(
 #------------------------------------------------------------
 
 CREATE TABLE Utilisateur(
-        idFacture_Clients Int NOT NULL ,
-        idClient          Int NOT NULL ,
-        idFacture         Int NOT NULL ,
-        idUtilisateur     Int NOT NULL ,
+	idFacture_Clients Int,
+        idClient          Int,
+        idFacture         Int,
+	Droits        boolean NOT NULL ,
+        idUtilisateur     Int Auto_increment NOT NULL ,
         Login             Varchar (150) NOT NULL ,
         Nom               Varchar (150) NOT NULL ,
         Prenom            Varchar (150) NOT NULL ,
-        role              Varchar (50) NOT NULL
-	,CONSTRAINT Utilisateur_PK PRIMARY KEY (idFacture_Clients,idClient,idFacture,idUtilisateur)
+        role              Varchar (50) 
+	,CONSTRAINT Utilisateur_PK PRIMARY KEY (idUtilisateur)
 
 	,CONSTRAINT Utilisateur_Clients_FK FOREIGN KEY (idFacture_Clients,idClient) REFERENCES Clients(idFacture,idClient)
-	,CONSTRAINT Utilisateur_Facture0_FK FOREIGN KEY (idFacture) REFERENCES Facture(idFacture)
+	,CONSTRAINT Utilisateur_Facture_FK FOREIGN KEY (idFacture) REFERENCES Facture(idFacture)
 )ENGINE=InnoDB;
 
 
@@ -74,12 +75,11 @@ CREATE TABLE Chambre(
         idChambre      Int  Auto_increment  NOT NULL ,
         NumChambre     Int NOT NULL ,
         NombrePersonne Int NOT NULL ,
-        TypeChambre    Varchar (150) NOT NULL ,
         Repas          Bool NOT NULL ,
         Balcon         Bool NOT NULL ,
         VuePiscine     Bool NOT NULL ,
         Tarif          DECIMAL (15,3)  NOT NULL ,
-        idReservation  Int NOT NULL
+        idReservation  Int
 	,CONSTRAINT Chambre_PK PRIMARY KEY (idChambre)
 
 	,CONSTRAINT Chambre_Reservation_FK FOREIGN KEY (idReservation) REFERENCES Reservation(idReservation)
@@ -146,4 +146,3 @@ CREATE TABLE effectue(
 	,CONSTRAINT effectue_Utilisateur_FK FOREIGN KEY (idFacture_Clients,idClient,idFacture,idUtilisateur) REFERENCES Utilisateur(idFacture_Clients,idClient,idFacture,idUtilisateur)
 	,CONSTRAINT effectue_Reservation0_FK FOREIGN KEY (idReservation) REFERENCES Reservation(idReservation)
 )ENGINE=InnoDB;
-
