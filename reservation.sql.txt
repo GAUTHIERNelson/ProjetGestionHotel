@@ -44,7 +44,7 @@ CREATE TABLE Utilisateur(
 	Droits        Boolean NOT NULL ,
         idUtilisateur     Int Auto_increment NOT NULL ,
         Login             Varchar (150) NOT NULL ,
-	Password          Varchat (150) NOT NULL,
+	Password          Varchar (150) NOT NULL,
         Nom               Varchar (150) NOT NULL ,
         Prenom            Varchar (150) NOT NULL 
 	,CONSTRAINT Utilisateur_PK PRIMARY KEY (idUtilisateur)
