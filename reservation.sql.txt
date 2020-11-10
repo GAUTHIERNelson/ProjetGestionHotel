@@ -75,9 +75,9 @@ CREATE TABLE Chambre(
         idChambre      Int  Auto_increment  NOT NULL ,
         NumChambre     Int NOT NULL ,
         NombrePersonne Int NOT NULL ,
-        Repas          Bool NOT NULL ,
-        Balcon         Bool NOT NULL ,
-        VuePiscine     Bool NOT NULL ,
+        Repas          Boolean NOT NULL ,
+        Balcon         Boolean NOT NULL ,
+        VuePiscine     Boolean NOT NULL ,
         Tarif          DECIMAL (15,3)  NOT NULL ,
         idReservation  Int
 	,CONSTRAINT Chambre_PK PRIMARY KEY (idChambre)
