@@ -1,7 +1,5 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,8 +8,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.JTree;
 
 public class Graphisme extends JFrame implements ActionListener{
 	private boolean identification = false;
@@ -98,21 +98,42 @@ public class Graphisme extends JFrame implements ActionListener{
 	
 	public JToolBar menu (JPanel panel){
 		JToolBar toolBar = new JToolBar ();
+		JPanel facture = factures ();
+		JPanel client = clients ();
+		JPanel stat = stats ();
 		
 		//Accé à la page de gestion des factures
         JButton bouton1 = new JButton("Facture");
         toolBar.add( bouton1 );
-        bouton1.addActionListener( (event) -> {System.out.println("bouton1"); panel.add(this.factures(), BorderLayout.CENTER);panel.revalidate();});	//Listener bouton Facture
+        bouton1.addActionListener( (event) -> {System.out.println("bouton1");
+										        panel.remove(facture);
+										        panel.remove(client);
+										        panel.remove(stat);
+												panel.repaint();
+										        panel.add(facture, BorderLayout.CENTER);
+										        panel.revalidate();});					//Listener bouton Facture
         
         //Accé à la page de gestion des Clients
         JButton bouton2 = new JButton("Client");
         toolBar.add( bouton2 );
-        bouton2.addActionListener( (event) -> {System.out.println("bouton2"); panel.add(this.clients(), BorderLayout.CENTER);panel.revalidate();});	//Listener bouton Client
+        bouton2.addActionListener( (event) -> {System.out.println("bouton2"); 
+										        panel.remove(facture);
+										        panel.remove(client);
+										        panel.remove(stat);
+												panel.repaint();
+										        panel.add(client, BorderLayout.CENTER);
+										        panel.revalidate();});					//Listener bouton Client
         
         //Accé à la page de gestion des Stats
         JButton bouton3 = new JButton("Stats Mensuel");
         toolBar.add( bouton3 );
-        bouton3.addActionListener( (event) -> {System.out.println("bouton3"); panel.add(this.stats(), BorderLayout.CENTER);panel.revalidate();});	//Listener bouton Stats Mensuel
+        bouton3.addActionListener( (event) -> {System.out.println("bouton3");
+        										panel.remove(facture);
+        										panel.remove(client);
+        										panel.remove(stat);
+        										panel.repaint();
+										        panel.add(stat, BorderLayout.CENTER);
+										        panel.revalidate();});					//Listener bouton Stats Mensuel
 		return toolBar;
 	}
 	
@@ -159,7 +180,21 @@ public class Graphisme extends JFrame implements ActionListener{
         modes.add( boutonClient3 );
         boutonClient3.addActionListener( (event) -> {System.out.println("boutonClient3");});	//Listener bouton pour modifier un Client
 
+        //Liste des clients
+        JPanel listeClient = new JPanel();
+//        listeClient.setSize(100, hauteur);
+        listeClient.setLayout(new GridLayout(10,1));
+        JButton client1 = new JButton("client1");
+        listeClient.add(client1);
+        JButton client2 = new JButton("client2");
+        listeClient.add(client2);
+        JButton client3 = new JButton("client3");
+        listeClient.add(client3);
+        JButton client4 = new JButton("client4");
+        listeClient.add(client4);
+        
         client.setLayout (new BorderLayout ());
+        client.add(listeClient, BorderLayout.WEST);
         client.add(modes, BorderLayout.NORTH);
         return client;
 	}
